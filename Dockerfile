@@ -17,6 +17,12 @@ RUN apt-get update && \
     apt-get install -y imagemagick && \
     rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && \
+    apt-get install -y php-pear && \
+    rm -rf /var/lib/apt/lists/* && \
+    pear install mail && \
+    pear install Net_SMTP
+    
 RUN a2enmod rewrite
 
 RUN mkdir -p /usr/src/mediawiki && \
