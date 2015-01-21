@@ -33,5 +33,12 @@ COPY apache/mediawiki.conf /etc/apache2/
 RUN echo Include /etc/apache2/mediawiki.conf >> /etc/apache2/apache2.conf
 
 COPY docker-entrypoint.sh /entrypoint.sh
+
+RUN mkdir /data
+RUN ln -s /data/LocalSettings.php /var/www/html/LocalSettings.php
+RUN rm -rf /var/www/html/images
+RUN ln -s /data/images /var/www/html/images
+VOLUME ["/data"]   
+
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["apache2-foreground"]
