@@ -36,10 +36,10 @@ COPY docker-entrypoint.sh /entrypoint.sh
 
 RUN mkdir /data
 RUN ln -s /data/LocalSettings.php /var/www/html/LocalSettings.php
-RUN [ -d /data/images ] || mkdir /data/images
 RUN rm -rf /var/www/html/images
 RUN ln -s /data/images /var/www/html/images
-RUN chown -R www-data:www-data /data/images && chmod -R 0755 /data/images
+RUN chown -R www-data:www-data /var/www/html/images && chmod -R 0755 /var/www/html/images
+
 VOLUME ["/data"]   
 
 ENTRYPOINT ["/entrypoint.sh"]
