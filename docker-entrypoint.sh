@@ -41,6 +41,20 @@ if ! [ -e index.php -a -e includes/DefaultSettings.php ]; then
 	php composer.phar require mediawiki/semantic-media-wiki "~2.1"
 	php maintenance/update.php
 	# To finish enableing Semantic Extensions add "enableSemantics( 'example.org' );" to LocalSettings.php
+	echo >&2 "Complete! Semantic MediaWiki Extensions installed."
+
+	echo >&2 "Installing Widget Extension."
+	cd extensions
+	git clone https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Widgets.git
+	cd Widgets
+	git submodule init
+	git submodule update
+	wget http://www.smarty.net/files/Smarty-stable.tar.gz
+	tar xzf Smarty-stable.tar.gz
+	mv Smarty-*.*.*/libs .
+	rm -rf Smarty-*.*.*/
+	chown -R www-data:www-data .
+	chmod a+rw compiled_templates
 fi
 
 : ${MEDIAWIKI_SHARED:=/var/www-shared/html}
