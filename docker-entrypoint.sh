@@ -35,6 +35,12 @@ if ! [ -e index.php -a -e includes/DefaultSettings.php ]; then
 	fi
 	tar cf - --one-file-system -C /usr/src/mediawiki . | tar xf -
 	echo >&2 "Complete! MediaWiki has been successfully copied to $(pwd)"
+
+	echo >&2 "Installing Semantic MediaWiki Extensions."
+	curl -sS https://getcomposer.org/installer | php
+	php composer.phar require mediawiki/semantic-media-wiki "~2.1"
+	php maintenance/update.php
+	# To finish enableing Semantic Extensions add "enableSemantics( 'example.org' );" to LocalSettings.php
 fi
 
 : ${MEDIAWIKI_SHARED:=/var/www-shared/html}
@@ -79,6 +85,7 @@ EOPHP
 
 chown -R www-data: .
 
+#Setup Images folder in data volume if it doesn't already exist
 if ! [ -e /data/images/.htaccess ]; then
     if ! [ -d /data/images ]; then
         mkdir /data/images
