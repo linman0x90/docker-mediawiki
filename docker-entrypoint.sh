@@ -26,6 +26,14 @@ if [ -z "$MEDIAWIKI_DB_PASSWORD" ]; then
 	exit 1
 fi
 
+if ! [ -e /data/images/.htaccess ]; then
+    if ! [ -d /data images ]; then
+        mkdir /data/images
+    fi
+    chown -R www-data:www-data /data/images
+    chmod -R 0755 /data/images
+fi
+
 if ! [ -e index.php -a -e includes/DefaultSettings.php ]; then
 	echo >&2 "MediaWiki not found in $(pwd) - copying now..."
 
@@ -36,16 +44,6 @@ if ! [ -e index.php -a -e includes/DefaultSettings.php ]; then
 	tar cf - --one-file-system -C /usr/src/mediawiki . | tar xf -
 	echo >&2 "Complete! MediaWiki has been successfully copied to $(pwd)"
 fi
-
-if ! [ -e /data/images/.htaccess]; then
-    if [ -d /data images]; then
-        mkdir /data/images
-    fi
-    chown -R www-data:www-data /data/images
-    chmod -R 0755 /data/images
-    cp -R /tmp/images /data/images
-fi
-
 
 : ${MEDIAWIKI_SHARED:=/var/www-shared/html}
 if [ -d "$MEDIAWIKI_SHARED" ]; then
@@ -88,6 +86,7 @@ $mysql->close();
 EOPHP
 
 chown -R www-data: .
+ln -s /data/images /var/www/html/images
 chown -R www-data:www-data /var/www/html/images
 chmod -R 0755 /var/www/html/images
 
