@@ -80,7 +80,7 @@ EOPHP
 chown -R www-data: .
 
 if ! [ -e /data/images/.htaccess ]; then
-    if ! [ -d /data images ]; then
+    if ! [ -d /data/images ]; then
         mkdir /data/images
     fi
     chown -R www-data:www-data /data/images
@@ -88,7 +88,7 @@ if ! [ -e /data/images/.htaccess ]; then
     
     mv /var/www/html/images /tmp/images
     ln -s /data/images /var/www/html/images
-    mv -R /tmp/images/* /data/images/
+    mv /tmp/images/* /data/images/
     rm -rf /tmp/images
     chown -R www-data:www-data /var/www/html/images
     chmod -R 0755 /var/www/html/images
