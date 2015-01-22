@@ -8,17 +8,13 @@ RUN apt-get update && \
     apt-get install -y g++ libicu52 libicu-dev && \
     pecl install intl && \
     echo extension=intl.so >> /usr/local/etc/php/conf.d/ext-intl.ini && \
-    apt-get remove -y g++ libicu-dev && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get remove -y g++ libicu-dev 
 
 RUN docker-php-ext-install mysqli opcache
 
-RUN apt-get update && \
-    apt-get install -y imagemagick && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get install -y imagemagick
 
-RUN apt-get update && \
-    apt-get install -y php-pear && \
+RUN apt-get install -y php-pear && \
     rm -rf /var/lib/apt/lists/* && \
     pear install mail && \
     pear install Net_SMTP
@@ -36,11 +32,12 @@ COPY docker-entrypoint.sh /entrypoint.sh
 
 RUN mkdir /data
 RUN ln -s /data/LocalSettings.php /var/www/html/LocalSettings.php
-RUN mv /var/www/html/images/ /tmp/images/
 RUN ln -s /data/images /var/www/html/images
 RUN chown -R www-data:www-data /var/www/html/images && chmod -R 0755 /var/www/html/images
 
 VOLUME ["/data"]   
+
+EXPOSE 80
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["apache2-foreground"]
