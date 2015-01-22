@@ -26,14 +26,6 @@ if [ -z "$MEDIAWIKI_DB_PASSWORD" ]; then
 	exit 1
 fi
 
-if ! [ -e /data/images/.htaccess ]; then
-    if ! [ -d /data images ]; then
-        mkdir /data/images
-    fi
-    chown -R www-data:www-data /data/images
-    chmod -R 0755 /data/images
-fi
-
 if ! [ -e index.php -a -e includes/DefaultSettings.php ]; then
 	echo >&2 "MediaWiki not found in $(pwd) - copying now..."
 
@@ -86,9 +78,23 @@ $mysql->close();
 EOPHP
 
 chown -R www-data: .
-ln -s /data/images /var/www/html/images
-chown -R www-data:www-data /var/www/html/images
-chmod -R 0755 /var/www/html/images
+
+if ! [ -e /data/images/.htaccess ]; then
+    if ! [ -d /data images ]; then
+        mkdir /data/images
+    fi
+    chown -R www-data:www-data /data/images
+    chmod -R 0755 /data/images
+    
+    mv /var/www/html/images /tmp/images
+    ln -s /data/images /var/www/html/images
+    mv -R /tmp/images/* /data/images/
+    rm -rf /tmp/images
+    chown -R www-data:www-data /var/www/html/images
+    chmod -R 0755 /var/www/html/images
+    
+fi
+
 
 export MEDIAWIKI_SITE_NAME MEDIAWIKI_DB_HOST MEDIAWIKI_DB_USER MEDIAWIKI_DB_PASSWORD MEDIAWIKI_DB_NAME
 
