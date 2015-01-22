@@ -88,6 +88,8 @@ $mysql->close();
 EOPHP
 
 chown -R www-data: .
+chown -R www-data:www-data /var/www/html/images
+chmod -R 0755 /var/www/html/images
 
 export MEDIAWIKI_SITE_NAME MEDIAWIKI_DB_HOST MEDIAWIKI_DB_USER MEDIAWIKI_DB_PASSWORD MEDIAWIKI_DB_NAME
 
