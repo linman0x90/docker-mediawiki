@@ -39,6 +39,7 @@ RUN ln -s /data/LocalSettings.php /var/www/html/LocalSettings.php
 RUN [ -d /data/images ] || mkdir /data/images
 RUN rm -rf /var/www/html/images
 RUN ln -s /data/images /var/www/html/images
+RUN chown -R www-data:www-data /data/images && chmod -R 0755 /data/images
 VOLUME ["/data"]   
 
 ENTRYPOINT ["/entrypoint.sh"]
