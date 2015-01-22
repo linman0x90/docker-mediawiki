@@ -36,7 +36,7 @@ COPY docker-entrypoint.sh /entrypoint.sh
 
 RUN mkdir /data
 RUN ln -s /data/LocalSettings.php /var/www/html/LocalSettings.php
-RUN mv /var/www/html/images /tmp/images
+RUN mv /var/www/html/images/ /tmp/images/
 RUN ln -s /data/images /var/www/html/images
 RUN chown -R www-data:www-data /var/www/html/images && chmod -R 0755 /var/www/html/images
 
