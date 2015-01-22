@@ -32,7 +32,6 @@ COPY docker-entrypoint.sh /entrypoint.sh
 
 RUN mkdir /data
 RUN ln -s /data/LocalSettings.php /var/www/html/LocalSettings.php
-RUN ln -s /data/images /var/www/html/images
 
 VOLUME ["/data"]   
 
