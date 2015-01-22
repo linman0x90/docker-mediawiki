@@ -55,6 +55,15 @@ if ! [ -e index.php -a -e includes/DefaultSettings.php ]; then
 	rm -rf Smarty-*.*.*/
 	chown -R www-data:www-data .
 	chmod a+rw compiled_templates
+	cd ..
+	echo >&2 "Complete! Semantic MediaWiki Extensions installed."
+
+	echo >&2 "Installing Cite Extension."
+	git clone https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Cite.git
+	chown -R www-data:www-data Cite
+	# Add require_once "$IP/extensions/Cite/Cite.php";to LocalSettings.php
+        echo >&2 "Complete! Semantic MediaWiki Extensions installed."
+
 fi
 
 : ${MEDIAWIKI_SHARED:=/var/www-shared/html}
