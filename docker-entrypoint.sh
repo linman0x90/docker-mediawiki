@@ -119,6 +119,19 @@ if ! [ -e /data/images/.htaccess ]; then
     
 fi
 
+#Setup skins folder in data volume if it doesn't already exist
+if ! [ -d /data/skins ]; then
+    mkdir /data/skins
+    chown -R www-data:www-data /data/skins
+    chmod -R 0755 /data/skins
+    mv /var/www/html/skins /tmp/skins
+    ln -s /data/skins /var/www/html/skins
+    mv /tmp/skins/* /data/skins/
+    rm -rf /tmp/skins
+    chown -R www-data:www-data /var/www/html/skins
+    chmod -R 0755 /var/www/html/skins
+fi
+
 
 export MEDIAWIKI_SITE_NAME MEDIAWIKI_DB_HOST MEDIAWIKI_DB_USER MEDIAWIKI_DB_PASSWORD MEDIAWIKI_DB_NAME
 

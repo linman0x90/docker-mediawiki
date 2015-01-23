@@ -14,6 +14,8 @@ RUN docker-php-ext-install mysqli opcache
 
 RUN apt-get install -y imagemagick git wget zziplib-bin
 
+RUN pecl install "channel://pecl.php.net/zip-1.12.4"
+
 RUN apt-get install -y php-pear && \
     rm -rf /var/lib/apt/lists/* && \
     pear install mail && \
