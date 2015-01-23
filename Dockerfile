@@ -12,7 +12,7 @@ RUN apt-get update && \
 
 RUN docker-php-ext-install mysqli opcache
 
-RUN apt-get install -y imagemagick git wget
+RUN apt-get install -y imagemagick git wget zziplib-bin
 
 RUN apt-get install -y php-pear && \
     rm -rf /var/lib/apt/lists/* && \

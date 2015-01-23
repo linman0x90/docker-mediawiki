@@ -39,7 +39,6 @@ if ! [ -e index.php -a -e includes/DefaultSettings.php ]; then
 	echo >&2 "Installing Semantic MediaWiki Extensions."
 	curl -sS https://getcomposer.org/installer | php
 	php composer.phar require mediawiki/semantic-media-wiki "~2.1"
-	php maintenance/update.php
 	# To finish enableing Semantic Extensions add "enableSemantics( 'example.org' );" to LocalSettings.php
 	echo >&2 "Complete! Semantic MediaWiki Extensions installed."
 
@@ -55,15 +54,10 @@ if ! [ -e index.php -a -e includes/DefaultSettings.php ]; then
 	rm -rf Smarty-*.*.*/
 	chown -R www-data:www-data .
 	chmod a+rw compiled_templates
-	cd ..
 	echo >&2 "Complete! Semantic MediaWiki Extensions installed."
 
-	echo >&2 "Installing Cite Extension."
-	git clone https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Cite.git
-	chown -R www-data:www-data Cite
-	# Add require_once "$IP/extensions/Cite/Cite.php";to LocalSettings.php
-        echo >&2 "Complete! Semantic MediaWiki Extensions installed."
-
+	cd /var/www/html/
+	php maintenance/update.php
 fi
 
 : ${MEDIAWIKI_SHARED:=/var/www-shared/html}
