@@ -55,6 +55,21 @@ if ! [ -e index.php -a -e includes/DefaultSettings.php ]; then
 	chown -R www-data:www-data .
 	chmod a+rw compiled_templates
 	echo >&2 "Complete! Semantic MediaWiki Extensions installed."
+	
+	echo >&2 "Installing Adsense2 Extensions."
+	wget https://extdist.wmflabs.org/dist/extensions/GoogleAdSense-REL1_23-0b0688f.tar.gz
+	tar xzf GoogleAdSense-REL1_23-0b0688f.tar.gz -C /var/www/html/extensions
+	rm -rf GoogleAdSense-REL1_23-0b0688f.tar.gz
+	chown -R www-data:www-data  /var/www/html/extensions
+        echo >&2 "Complete! Adsense2 Extensions installed."
+
+	#echo >&2 "Installing VisualEditor Extension."
+	#wget https://extdist.wmflabs.org/dist/extensions/VisualEditor-REL1_23-9883566.tar.gz
+	#tar -xzf VisualEditor-REL1_23-9883566.tar.gz -C /var/www/html/extensions
+	#chown -R www-data:www-data  /var/www/html/extensions
+	#rm -rf VisualEditor-REL1_23-9883566.tar.gz
+	#echo >&2 "Complete! VisualEditor Extensions installed."
+	
 
 	cd /var/www/html/
 	php maintenance/update.php
