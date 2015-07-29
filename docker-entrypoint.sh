@@ -131,8 +131,10 @@ if ! [ -e /data/images/.htaccess ]; then
     fi
     chown -R www-data:www-data /data/images
     chmod -R 0755 /data/images
-   
-    mkdir /tmp/images 
+  
+    if ! [ -d /tmp/images ]; then	 
+        mkdir /tmp/images
+    fi 
     mv /var/www/html/images /tmp/images
     ln -s /data/images /var/www/html/images
     mv /tmp/images/* /data/images/
