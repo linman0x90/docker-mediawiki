@@ -64,9 +64,9 @@ if ! [ -e index.php -a -e includes/DefaultSettings.php ]; then
         echo >&2 "Complete! Adsense2 Extensions installed."
 
 	echo >&2 "Installing Analytics Extensions."
-	wget https://extdist.wmflabs.org/dist/extensions/googleAnalytics-REL1_23-7f6e6e3.tar.gz
-        tar -xzf googleAnalytics-REL1_23-7f6e6e3.tar.gz -C /var/www/html/extensions 
-        rm -rf googleAnalytics-REL1_23-7f6e6e3.tar.gz 
+	wget https://extdist.wmflabs.org/dist/extensions/googleAnalytics-REL1_24-6d6773b.tar.gz
+        tar -xzf googleAnalytics-REL1_24-6d6773b.tar.gz -C /var/www/html/extensions 
+        rm -rf googleAnalytics-REL1_24-6d6773b.tar.gz 
         chown -R www-data:www-data  /var/www/html/extensions
         echo >&2 "Complete! Analytics Extensions installed."
 
